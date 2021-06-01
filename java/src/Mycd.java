@@ -1,4 +1,3 @@
-import java.io.File;
 import java.util.*;
 
 public class Mycd {
@@ -42,18 +41,20 @@ public class Mycd {
 
 		for(String str: destStack){
 			result.append(str);
-			System.out.println(str);
 		}
 
 
 		//convert SB to string
 		String finalDest = result.toString();
 
-		//check if directory exists by using Java's File API
-		File directory = new File(finalDest);
-
-		//if directory exists return the location, otherwise print destination + error message
-		return directory.exists() ? finalDest : dest + ": No such file or directory";
+		//if path contains illegal characters, print error
+		for(char c: finalDest.toCharArray()){
+			if(!Character.isLetterOrDigit(c) && c != '/')
+					return dest + ": No such file or directory";
+		} 
+		
+		//otherwise print the path
+		return finalDest;
 		
 	}
 
